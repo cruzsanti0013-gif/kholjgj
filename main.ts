@@ -2,18 +2,14 @@ let distancia = 0
 basic.forever(function () {
     // Medir distancia con el sensor ultrasónico
     distancia = sonar.ping(
-    DigitalPin.P1,
-    DigitalPin.P2,
+    DigitalPin.P5,
+    DigitalPin.P8,
     PingUnit.Centimeters
     )
-    if (distancia < 15 && distancia > 0) {
-        // Algo se acercó a menos de 15cm - abrir puerta
-        // Servo a 90° (sube puerta)
-        pins.servoWritePin(AnalogPin.P0, 90)
+    if (distancia > 0 && distancia < 15) {
+        pins.servoWritePin(AnalogPin.P16, 0)
+        basic.pause(3000)
     } else {
-        // Nada cerca - cerrar puerta
-        // Servo a 0° (bajar puerta)
-        pins.servoWritePin(AnalogPin.P0, 0)
+        pins.servoWritePin(AnalogPin.P16, 100)
     }
-    basic.pause(200)
 })
